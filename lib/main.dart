@@ -1,4 +1,5 @@
 import 'package:aplikasi_bahasa_arab/home_page.dart';
+import 'package:aplikasi_bahasa_arab/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const SplashPage(),
     );
   }
 }

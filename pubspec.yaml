@@ -37,6 +37,7 @@ dependencies:
   lottie: ^3.3.1
   audioplayers: ^6.1.1
   flutter_launcher_icons: ^0.14.3
+  loading_animation_widget: ^1.3.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - assets/images/hafidz.json
     - assets/images/development.png
     - assets/images/ebook.png
+    - assets/images/buku.png
     - assets/images/evaluasi.png
     - assets/images/info.png
     - assets/images/uin.png

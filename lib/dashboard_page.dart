@@ -1,4 +1,8 @@
+import 'package:aplikasi_bahasa_arab/biografi/biografi_page.dart';
 import 'package:aplikasi_bahasa_arab/config/theme_config.dart';
+import 'package:aplikasi_bahasa_arab/materi/materi_page.dart';
+import 'package:aplikasi_bahasa_arab/petunjuk/petunjuk_page.dart';
+import 'package:aplikasi_bahasa_arab/tujuan/tujuan_page.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +27,18 @@ class _DashboardPageState extends State<DashboardPage> {
         backgroundColor: primary4,
         appBar: AppBar(
           backgroundColor: primary4,
+          centerTitle: true,
+          title: Column(
+            children: [
+              Text(
+                'قَائِمَة الطَّعَامِ',
+                style: TextStyle(fontSize: 20, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
+              ),
+              Text('MENU',style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,shadows: [
+                Shadow(color: Colors.white,blurRadius: 5)
+              ]),),
+            ],
+          ),
           leading: Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -58,216 +74,152 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           actions: [
             IconButton(onPressed: () {
-              Navigator.pop(context);
-            }, icon: Icon(Icons.close_outlined,color: Colors.black,size: 30,))
+              // Navigator.pop(context);
+            }, icon: Icon(Icons.close_outlined,color: Colors.red,size: 30,))
           ],
         ),
 
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'قَائِمَة الطَّعَامِ',
-              style: TextStyle(fontSize: 35, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
-            ),
-            Text('MENU',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,shadows: [
-              Shadow(color: Colors.white,blurRadius: 5)
-            ]),),
-            SizedBox(height: 50,),
-            Padding(
-              padding: const EdgeInsets.only(left: 25,right: 25),
-              child: GridView(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10),
-                children: [
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    // hoverColor: Colors.transparent,
-                    onTap: () {
-                      _playClickSound();
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Card(
-                      elevation: 0,
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1,
-                              color: Colors.black
-                          ),
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset("assets/images/info.png",width: 50,height: 50,),
-                            Text(
-                              'اِرْشَاد',
-                              style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
-                            ),
-                          ],
+        body: Center(
+          child:    Padding(
+            padding: const EdgeInsets.only(left: 25,right: 25),
+            child: GridView(
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10),
+              children: [
+                InkWell(
+                  // hoverColor: Colors.transparent,
+                  onTap: () {
+                    _playClickSound();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PetunjukPage(),));
+                  },
+                  borderRadius: BorderRadius.circular(10),
+                  child: Card(
+                    elevation: 0,
+                    color: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.black
                         ),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset("assets/images/info.png",width: 50,height: 50,),
+                          Text(
+                            'اِرْشَاد',
+                            style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    // hoverColor: Colors.transparent,
-                    onTap: () {
-                      _playClickSound();
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Card(
-                      elevation: 0,
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1,
-                              color: Colors.black
-                          ),
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                          children: [
-                            Image.asset("assets/images/ebook.png",width: 50,height: 50,),
-                            Text(
-                              'مَادَّة',
-                              style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                ),
+                InkWell(
+                  // hoverColor: Colors.transparent,
+                  onTap: () {
+                    _playClickSound();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MateriPage(),));
+                  },
+                  borderRadius: BorderRadius.circular(10),
+                  child: Card(
+                    elevation: 0,
+                    color: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.black
                         ),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                        children: [
+                          Image.asset("assets/images/buku.png",width: 50,height: 50,),
+                          Text(
+                            'مَادَّة',
+                            style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    // hoverColor: Colors.transparent,
-                    onTap: () {
-                      _playClickSound();
-
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Card(
-                      elevation: 0,
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1,
-                              color: Colors.black
-                          ),
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                          children: [
-                            Image.asset("assets/images/mahasiswa.png",width: 50,height: 50,),
-                            Text(
-                              'بُغْيَة',
-                              style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                ),
+                InkWell(
+                  // hoverColor: Colors.transparent,
+                  onTap: () {
+                    _playClickSound();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => TujuanPage(),));
+                  },
+                  borderRadius: BorderRadius.circular(10),
+                  child: Card(
+                    elevation: 0,
+                    color: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.black
                         ),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                        children: [
+                          Image.asset("assets/images/mahasiswa.png",width: 50,height: 50,),
+                          Text(
+                            'بُغْيَة',
+                            style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    // hoverColor: Colors.transparent,
-                    onTap: () {
-                      _playClickSound();
-
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Card(
-                      elevation: 0,
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1,
-                              color: Colors.black
-                          ),
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                          children: [
-                            Image.asset("assets/images/bio.png",width: 50,height: 50,),
-                            Text(
-                              'سِيْرَة',
-                              style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                ),
+                InkWell(
+                  // hoverColor: Colors.transparent,
+                  onTap: () {
+                    _playClickSound();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BiografiPage(),));
+                  },
+                  borderRadius: BorderRadius.circular(10),
+                  child: Card(
+                    elevation: 0,
+                    color: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            width: 1,
+                            color: Colors.black
                         ),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                        children: [
+                          Image.asset("assets/images/bio.png",width: 50,height: 50,),
+                          Text(
+                            'سِيْرَة',
+                            style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],),
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //
-            //   ],
-            // ),
-            // SizedBox(height: 10,),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //
-            //   ],
-            // ),
-            // SizedBox(height: 10,),
-            // InkWell(
-            //   highlightColor: Colors.transparent,
-            //   splashColor: Colors.transparent,
-            //   // hoverColor: Colors.transparent,
-            //   onTap: () {
-            //     _playClickSound();
-            //
-            //   },
-            //   borderRadius: BorderRadius.circular(10),
-            //   child: Card(
-            //     elevation: 0,
-            //     color: Colors.transparent,
-            //     shape: RoundedRectangleBorder(
-            //         side: BorderSide(
-            //             width: 0.5,
-            //             color: Colors.black
-            //         ),
-            //         borderRadius: BorderRadius.circular(10)
-            //     ),
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(10),
-            //       child: Column(
-            //         children: [
-            //           Image.asset("assets/images/info.png",width: 50,height: 50,),
-            //           Text(
-            //             'قائمة طعام',
-            //             style: TextStyle(fontSize: 30, fontFamily: "NotoNaskhArabic",fontWeight: FontWeight.bold),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-          ],
+                ),
+              ],),
+          ),
         )
     );
   }
