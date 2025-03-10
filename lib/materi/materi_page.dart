@@ -1,7 +1,29 @@
 import 'dart:developer';
+import 'package:aplikasi_bahasa_arab/dashboard_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/ain_page.dart';
 import 'package:aplikasi_bahasa_arab/materi/alif_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/ba_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/dal_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/fa_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/ha_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/hah_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/kaf_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/lam_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/lamalif_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/mim_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/nun_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/penutup_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/qof_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/ro_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/sin_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/syod_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/to_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/waw_page.dart';
+import 'package:aplikasi_bahasa_arab/materi/ya_page.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import '../config/theme_config.dart';
 
 class MateriPage extends StatefulWidget implements PreferredSizeWidget {
@@ -15,19 +37,32 @@ class MateriPage extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _MateriPageState extends State<MateriPage> with SingleTickerProviderStateMixin {
-  final AudioPlayer _audioPlayer = AudioPlayer();
-  bool isMusic = true;
   late AnimationController _controller;
   late Animation<Offset> _animationLeft;
   late Animation<Offset> _animationRight;
   final PageController _pageController = PageController(initialPage: 0);
-  int _currentIndex = 0; // Indeks dimulai dari 0 agar sesuai dengan PageView
+  int _currentIndex = 0;
 
   List<Widget> menu = [
-    AlifPage(color: primary4, text: "assets/images/hafidz.json"),
-    AlifPage(color: primary4, text: "assets/images/hafidz.json"),
-    AlifPage(color: primary4, text: "assets/images/hafidz.json"),
-    AlifPage(color: primary4, text: "assets/images/hafidz.json"),
+    AlifPage(color: primary4, backsound: 'assets/sound/pembuka.mp3',),
+    BaPage(color: primary4),
+    HaPage(color: primary4),
+    DalPage(color: primary4),
+    RoPage(color: primary4),
+    SinPage(color: primary4),
+    SyodPage(color: primary4),
+    ToPage(color: primary4),
+    AinPage(color: primary4),
+    FaPage(color: primary4),
+    QofPage(color: primary4),
+    KafPage(color: primary4),
+    LamPage(color: primary4),
+    MimPage(color: primary4),
+    NunPage(color: primary4),
+    HahPage(color: primary4),
+    WawPage(color: primary4),
+    YaPage(color: primary4),
+    LamalifPage(color: primary4)
   ];
 
   @override
@@ -51,10 +86,6 @@ class _MateriPageState extends State<MateriPage> with SingleTickerProviderStateM
     _controller.forward();
   }
 
-  void _playClickSound() async {
-    await _audioPlayer.play(AssetSource('sound/click.mp3'));
-  }
-
   void _onPageChanged(int index) {
     setState(() {
       _currentIndex = index;
@@ -73,9 +104,20 @@ class _MateriPageState extends State<MateriPage> with SingleTickerProviderStateM
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if(!didPop){
+          _showExitConfirmation();
+        }
+      },
       child: Scaffold(
         backgroundColor: primary4,
         appBar: AppBar(
@@ -120,13 +162,10 @@ class _MateriPageState extends State<MateriPage> with SingleTickerProviderStateM
                 ),
                 child: IconButton(
                   onPressed: () {
-                    _playClickSound();
-                    setState(() {
-                      isMusic = !isMusic;
-                    });
+                    Fluttertoast.showToast(msg: "tidak bisa memutar musik!");
                   },
                   icon: Icon(
-                    isMusic ? Icons.music_note_outlined : Icons.music_off_outlined,
+                    Icons.music_off_outlined,
                     color: Colors.black,
                     size: 30,
                   ),
@@ -137,8 +176,7 @@ class _MateriPageState extends State<MateriPage> with SingleTickerProviderStateM
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pop(context);
-                _playClickSound();
+                _showExitConfirmation();
               },
               icon: Icon(Icons.close_outlined, color: Colors.red, size: 30),
             )
@@ -147,6 +185,7 @@ class _MateriPageState extends State<MateriPage> with SingleTickerProviderStateM
         body: PageView(
           controller: _pageController,
           onPageChanged: _onPageChanged,
+          physics:NeverScrollableScrollPhysics(),
           children: menu,
         ),
         bottomNavigationBar: Padding(
@@ -156,24 +195,50 @@ class _MateriPageState extends State<MateriPage> with SingleTickerProviderStateM
             children: [
               IconButton(
                 onPressed: _currentIndex > 0 ? () {
-                  _playClickSound();
                   _goToPage(_currentIndex - 1);
                 } : null,
-                icon: Icon(Icons.arrow_back),
+                icon: Icon(Icons.arrow_back,size: 30,),
                 color: _currentIndex > 0 ? Colors.black : Colors.grey,
               ),
               IconButton(
                 onPressed: _currentIndex < menu.length - 1 ? () {
-                  _playClickSound();
                   _goToPage(_currentIndex + 1);
-                } : null,
-                icon: Icon(Icons.arrow_forward),
+                } : (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PenutupPage(),));
+                },
+                icon:_currentIndex < menu.length - 1 ? Icon(Icons.arrow_forward,size: 30,) : Text('selesai'),
                 color: _currentIndex < menu.length - 1 ? Colors.black : Colors.grey,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showExitConfirmation() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Konfirmasi Keluar"),
+          content: Text("Apakah Anda yakin ingin keluar dari menu materi?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Tutup dialog
+              },
+              child: Text("Batal"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => DashboardPage(),), (route) => false,);
+              },
+              child: Text("Keluar"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
